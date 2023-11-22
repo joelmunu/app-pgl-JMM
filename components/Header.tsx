@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: appColors.primary,
         width: '100%',
-        flex: 1
     },
     headerTitle: {
         color: appColors.titleColor,

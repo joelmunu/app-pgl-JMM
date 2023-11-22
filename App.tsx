@@ -1,14 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import WelcomeScreen from './components/WelcomeScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import appColors from './assets/styles/appColors';
 import Header from './components/Header';
+import { NavigationContainer } from '@react-navigation/native';
+import CustomDrawer from './components/CustomDrawer';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Header/>
-      <WelcomeScreen/>
+      <Header />
+      <NavigationContainer>
+        <CustomDrawer/>
+      </NavigationContainer>
       <StatusBar style="auto" />
     </View>
   );

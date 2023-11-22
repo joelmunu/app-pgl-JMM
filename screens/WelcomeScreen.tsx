@@ -40,11 +40,10 @@ const styles = StyleSheet.create({
     },
     pressable: {
         backgroundColor: appColors.accentColor,
-        //border
-        borderRadius: 5,
+        borderRadius: 10,
         width: '45%',
         padding: 18,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     buttonText: {
         fontSize: 20,
@@ -54,11 +53,11 @@ const styles = StyleSheet.create({
         flex: 2
     },
     pressableContainer: {
-        flex: 3
+        flex: 3,
     },
     image: {
         alignSelf: 'flex-end',
         marginRight: 25,
-        marginTop: -25
+        marginTop: -32,
     }
 })
