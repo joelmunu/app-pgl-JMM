@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
         color: appColors.titleColor,
         fontSize: 26,
         marginLeft: 10,
-        marginTop: 16
+        marginTop: 16,
+        width: '70%'
     },
     pressable: {
         backgroundColor: appColors.accentColor,
@@ -58,6 +59,5 @@ const styles = StyleSheet.create({
     image: {
         alignSelf: 'flex-end',
         marginRight: 25,
-        marginTop: -32,
     }
 })
