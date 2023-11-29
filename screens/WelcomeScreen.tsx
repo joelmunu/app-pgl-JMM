@@ -1,8 +1,13 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import appColors from '../assets/styles/appColors'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import appColors from '../assets/styles/appColors';
+import { LoginContext } from '../contexts/LoginContext';
+import { useContext } from 'react';
 
 const WelcomeScreen = () => {
-    return (
+
+    const { username, isUserLogged } = useContext(LoginContext);
+
+    return isUserLogged ? (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.welcomeText}>Te damos la bienvenida, Invitado</Text>
@@ -23,6 +28,14 @@ const WelcomeScreen = () => {
                 </Pressable>
             </View>
         </View>
+    ) : (
+        <View style={styles.titleContainer}>
+            <Text style={styles.welcomeText}>Te damos la bienvenida, {username}</Text>
+            <Image
+                source={require("../assets/welcome.png")}
+                style={styles.image}
+            />
+        </View>
     )
 }
 
@@ -36,7 +49,8 @@ const styles = StyleSheet.create({
         color: appColors.titleColor,
         fontSize: 26,
         marginLeft: 10,
-        marginTop: 16
+        marginTop: 16,
+        width: '70%'
     },
     pressable: {
         backgroundColor: appColors.accentColor,
@@ -58,6 +72,5 @@ const styles = StyleSheet.create({
     image: {
         alignSelf: 'flex-end',
         marginRight: 25,
-        marginTop: -32,
     }
-})
+});
