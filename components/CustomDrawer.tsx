@@ -3,6 +3,7 @@ import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigatio
 import appColors from '../assets/styles/appColors';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
+import PortfolioScreen from '../screens/PortfolioScreen';
 import { useContext } from 'react';
 import { LoginContext } from '../contexts/LoginContext';
 
@@ -22,8 +23,8 @@ const CustomDrawer = () => {
     },
     drawerActiveTintColor: appColors.titleColor,
     drawerActiveBackgroundColor: appColors.primary,
-    drawerInactiveTintColor: appColors.titleColor,
-    drawerInactiveBackgroundColor: '#b0b3a4',
+    drawerInactiveTintColor: appColors.textColor,
+    drawerInactiveBackgroundColor: appColors.secondary,
     drawerType: 'slide',
   };
 
@@ -37,6 +38,7 @@ const CustomDrawer = () => {
   ) : (
     <Drawer.Navigator initialRouteName='Inicio' screenOptions={drawerNavigatorScreenOptions}>
       <Drawer.Screen name='Inicio' component={WelcomeScreen} options={{ title: 'Inicio' }} />
+      <Drawer.Screen name='Portfolio' component={PortfolioScreen} options={{ title: 'Portfolio' }} />
     </Drawer.Navigator>
   );
 };
