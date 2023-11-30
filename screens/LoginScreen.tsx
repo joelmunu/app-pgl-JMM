@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   pressable: {
     backgroundColor: appColors.accentColor,
     borderRadius: 10,
-    width: '45%',
+    width: '50%',
     padding: 18,
     alignSelf: 'center',
     marginTop: 45,

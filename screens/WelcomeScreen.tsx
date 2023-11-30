@@ -2,10 +2,16 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import appColors from '../assets/styles/appColors';
 import { LoginContext } from '../contexts/LoginContext';
 import { useContext } from 'react';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({navigation} : {
+    navigation: NavigationProp<ParamListBase>}) => {
 
     const { username, isUserLogged } = useContext(LoginContext);
+
+    const navigateToLogin = () => {
+        navigation.navigate("Inicio de sesión");
+    };
 
     return isUserLogged ? (
         <View style={styles.container}>
@@ -19,7 +25,7 @@ const WelcomeScreen = () => {
             <View style={styles.pressableContainer}>
                 <Pressable
                     style={styles.pressable}
-                    //onPress={}
+                    onPress={() => navigateToLogin()}
                     accessibilityLabel="Boton para acceder a la pantalla de inicio de sesion"
                 >
                     <Text style={styles.buttonText}>
@@ -36,10 +42,10 @@ const WelcomeScreen = () => {
                 style={styles.image}
             />
         </View>
-    )
-}
+    );
+};
 
-export default WelcomeScreen
+export default WelcomeScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -55,13 +61,17 @@ const styles = StyleSheet.create({
     pressable: {
         backgroundColor: appColors.accentColor,
         borderRadius: 10,
-        width: '45%',
+        width: '50%',
         padding: 18,
+        paddingLeft: 10,
+        paddingRight: 10,
         alignSelf: 'center',
+        marginTop: 45,
     },
     buttonText: {
         fontSize: 20,
-        color: appColors.secondary
+        color: appColors.secondary,
+        textAlign: 'center'
     },
     titleContainer: {
         flex: 2
