@@ -4,10 +4,10 @@ import HobbiesList from '../components/HobbiesList';
 
 const UserInfoScreen = () => {
   return (
-    <View>
+    <>
       <Description></Description>
       <HobbiesList></HobbiesList>
-    </View>
+    </>
   )
 }
 

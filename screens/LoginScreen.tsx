@@ -20,7 +20,7 @@ const LoginScreen = () => {
   };
 
   const showFailedLoginAlert = () => {
-    Alert.alert('Error al iniciar sesión', 'Nombre de usuario o contraseña incorrectos', [
+    Alert.alert('❌ Error al iniciar sesión', 'Nombre de usuario o contraseña incorrectos', [
       { text: 'OK', onPress: () => console.log('OK Pressed') },
     ]);
   };
