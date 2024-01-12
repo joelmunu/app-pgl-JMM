@@ -7,6 +7,7 @@ import PortfolioScreen from '../screens/PortfolioScreen';
 import { useContext } from 'react';
 import { LoginContext } from '../contexts/LoginContext';
 import LogoutScreen from '../screens/LogoutScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -35,6 +36,7 @@ const CustomDrawer = () => {
     <Drawer.Navigator initialRouteName='Inicio' screenOptions={drawerNavigatorScreenOptions}>
       <Drawer.Screen name='Inicio' component={WelcomeScreen} options={{ title: 'Inicio' }} />
       <Drawer.Screen name='Inicio de sesión' component={LoginScreen} options={{ title: 'Inicio de sesión' }} />
+      <Drawer.Screen name='Registro de usuario' component={RegisterScreen} options={{ title: 'Registro de usuario' }} />
     </Drawer.Navigator>
   ) : (
     <Drawer.Navigator initialRouteName='Inicio' screenOptions={drawerNavigatorScreenOptions}>
