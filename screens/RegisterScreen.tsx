@@ -26,29 +26,33 @@ const RegisterScreen = () => {
     };
 
     const userRegistration = async () => {
-        let user = {};
-        user = {
+        let user = {
             name: usernameInput,
             email: emailInput,
             password: passwordInput
         };
+
+        if (user.name == '' || user.email == '' || user.password == '') {
+            setRegisterError(true);
+            return Alert.alert('❌ Error en el registro', 'Todos los campos son obligatorios');
+        };
+
         let response = userRegister(user);
 
         if ((await response).httpCode == 201) {
             toggleIsUserLogged();
             setUsername(usernameInput);
-            
+            console.log('Registration completed');
             Alert.alert(`✅ Se ha creado el usuario ${usernameInput}`, 'Se te redigirá a la pantalla de inicio', [
                 { text: 'Ok' },
             ]);
 
             setRegisterError(false);
         } else {
-            Alert.alert('❌ Error en el registro', 'El usuario ya existe o falta algún campo', [
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
-            ]);
+            console.log('Registration failed');
+            Alert.alert('❌ Error en el registro', 'Nombre de usuario y/o email ya en uso');
             setRegisterError(true);
-        }
+        };
     };
 
     return (

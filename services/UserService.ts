@@ -40,7 +40,6 @@ export const userRegister = async (user: {}): Promise<ApiResponseType> => {
         apiResponse.username = json.name;
     }
     apiResponse.httpCode = response.status;
-    console.log(apiResponse.httpCode)
     return apiResponse;
 };
 
