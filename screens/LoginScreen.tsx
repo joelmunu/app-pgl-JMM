@@ -3,6 +3,7 @@ import appColors from '../assets/styles/appColors';
 import { TextInput } from 'react-native-gesture-handler';
 import { useContext, useState } from 'react';
 import { LoginContext } from '../contexts/LoginContext';
+import { userLogin } from '../services/UserService';
 
 const LoginScreen = () => {
 
@@ -20,18 +21,18 @@ const LoginScreen = () => {
   };
 
   const showFailedLoginAlert = () => {
-    Alert.alert('❌ Error al iniciar sesión', 'Nombre de usuario o contraseña incorrectos', [
-      { text: 'OK', onPress: () => console.log('OK Pressed') },
-    ]);
+    Alert.alert('❌ Error al iniciar sesión', 'Nombre de usuario o contraseña incorrectos');
   };
 
-  const login = () => {
-    const userData = {
-      username: 'Joel',
-      password: '1234'
+  const login = async () => {
+    const user = {
+      name: usernameInput,
+      password: passwordInput
     };
 
-    if (usernameInput == userData.username && passwordInput == userData.password) {
+    let response = await userLogin(user);
+
+    if ((response) == 200) {
       toggleIsUserLogged();
       setUsername(usernameInput);
       console.log('Login completed');
@@ -45,16 +46,16 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.loginContainer}>
-      <Text style={loginError ? ({...styles.label, ...styles.labelError}) : (styles.label)}>Nombre de usuario:</Text>
+      <Text style={loginError ? ({ ...styles.label, ...styles.labelError }) : (styles.label)}>Nombre de usuario:</Text>
       <TextInput
         placeholder='Nombre de usuario'
-        style={loginError ? ({...styles.input, ...styles.inputError}) : (styles.input)}
+        style={loginError ? ({ ...styles.input, ...styles.inputError }) : (styles.input)}
         onChangeText={usernameHandle}
       />
-      <Text style={loginError ? ({...styles.label, ...styles.labelError}) : (styles.label)}>Contraseña:</Text>
+      <Text style={loginError ? ({ ...styles.label, ...styles.labelError }) : (styles.label)}>Contraseña:</Text>
       <TextInput
         placeholder='Contraseña'
-        style={loginError ? ({...styles.input, ...styles.inputError}) : (styles.input)}
+        style={loginError ? ({ ...styles.input, ...styles.inputError }) : (styles.input)}
         secureTextEntry
         onChangeText={passwordHandle}
       />
