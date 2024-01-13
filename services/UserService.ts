@@ -1,4 +1,4 @@
-const USER_API_URL = 'http://172.16.100.197:8888/users';
+const USER_API_URL = 'http://192.168.0.24:8888/users';
 const LOGIN_PATH = '/login';
 const REGISTER_PATH = '/register';
 
@@ -42,4 +42,12 @@ export const userRegister = async (user: {}): Promise<ApiResponseType> => {
     apiResponse.httpCode = response.status;
     console.log(apiResponse.httpCode)
     return apiResponse;
+};
+
+export const userLogin = async (user: {}): Promise<number> => {
+    const request: RequestInfo = `${ USER_API_URL }${LOGIN_PATH}`;
+    const response = await fetch(request, getInitRequest("POST", user));
+
+    let httpCode = response.status;
+    return httpCode;
 };
