@@ -13,6 +13,10 @@ const WelcomeScreen = ({navigation} : {
         navigation.navigate("Inicio de sesión");
     };
 
+    const navigateToRegister = () => {
+        navigation.navigate("Registro de usuario");
+    };
+
     return isUserLogged ? (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
@@ -30,6 +34,15 @@ const WelcomeScreen = ({navigation} : {
                 >
                     <Text style={styles.buttonText}>
                         Inicio de sesión
+                    </Text>
+                </Pressable>
+                <Pressable
+                    style={styles.pressable}
+                    onPress={() => navigateToRegister()}
+                    accessibilityLabel="Boton para acceder a la pantalla de registro de usuario"
+                >
+                    <Text style={styles.buttonText}>
+                        Registrarse
                     </Text>
                 </Pressable>
             </View>
@@ -66,7 +79,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         alignSelf: 'center',
-        marginTop: 45,
+        marginTop: 20
     },
     buttonText: {
         fontSize: 20,
