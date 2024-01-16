@@ -41,9 +41,9 @@ const RegisterScreen = () => {
 
         if ((await response).httpCode == 201) {
             toggleIsUserLogged();
-            setUsername(usernameInput);
+            setUsername((await response).username);
             console.log('Registration completed');
-            Alert.alert(`✅ Se ha creado el usuario ${usernameInput}`, 'Se te redigirá a la pantalla de inicio', [
+            Alert.alert(`✅ Se ha creado el usuario ${(await response).username}`, 'Se te redigirá a la pantalla de inicio', [
                 { text: 'Ok' },
             ]);
 
@@ -64,7 +64,7 @@ const RegisterScreen = () => {
                     style={registerError ? ({ ...styles.input, ...styles.inputError }) : (styles.input)}
                     onChangeText={usernameHandle}
                 />
-                <Text style={registerError ? ({ ...styles.label, ...styles.labelError }) : (styles.label)}>Email</Text>
+                <Text style={registerError ? ({ ...styles.label, ...styles.labelError }) : (styles.label)}>Email:</Text>
                 <TextInput
                     placeholder='Email'
                     style={registerError ? ({ ...styles.input, ...styles.inputError }) : (styles.input)}
@@ -88,10 +88,10 @@ const RegisterScreen = () => {
                 </Pressable>
             </View>
         </View>
-    )
-}
+    );
+};
 
-export default RegisterScreen
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
     loginContainer: {
