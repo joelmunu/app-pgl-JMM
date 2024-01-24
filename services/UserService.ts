@@ -1,4 +1,4 @@
-const USER_API_URL = 'http://172.16.101.208:8888/users'; // ESCRIBE AQUÍ TU IP
+const USER_API_URL = 'http://192.168.1.138:8888/users'; // ESCRIBE AQUÍ TU IP 172.16.101.245
 const LOGIN_PATH = '/login';
 const REGISTER_PATH = '/register';
 
