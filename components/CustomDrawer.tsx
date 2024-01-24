@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { LoginContext } from '../contexts/LoginContext';
 import LogoutScreen from '../screens/LogoutScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import AudioRecordingScreen from '../screens/AudioRecordingScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -42,6 +43,7 @@ const CustomDrawer = () => {
     <Drawer.Navigator initialRouteName='Inicio' screenOptions={drawerNavigatorScreenOptions}>
       <Drawer.Screen name='Inicio' component={WelcomeScreen} options={{ title: 'Inicio' }} />
       <Drawer.Screen name='Portfolio' component={PortfolioScreen} options={{ title: 'Portfolio' }} />
+      <Drawer.Screen name='Grabadora de audio' component={AudioRecordingScreen} options={{ title: 'Grabadora de audio' }} />
       <Drawer.Screen name='Cerrar sesión' component={LogoutScreen} options={{ title: 'Cerrar sesión' }} />
     </Drawer.Navigator>
   );
