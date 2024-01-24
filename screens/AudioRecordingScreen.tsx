@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, StyleSheet, Text, View, Pressable, Alert } from 'react-native';
 import { AVPlaybackStatusSuccess, Audio } from 'expo-av';
 import appColors from '../assets/styles/appColors';
 import { ScrollView } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
-  const [recording, setRecording] = useState<Audio.Recording | undefined>();
-  const [recordings, setRecordings] = useState<Array<{
+
+  type Record = {
     sound: Audio.Sound;
     duration: string;
     file: string | null;
-  }>>([]);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+  
+
+  const [recording, setRecording] = useState<Audio.Recording | undefined>();
+  const [recordings, setRecordings] = useState<Array<Record>>([]);
   const [message, setMessage] = useState<string>("");
+  const STORAGE_KEY = 'recordingsKey';
+  
 
   async function startRecording() {
     try {
@@ -29,12 +40,12 @@ export default function App() {
 
         setRecording(recording);
       } else {
-        setMessage("Por favor, permite que la app acceda al micrófono");
-      }
+        Alert.alert('❌ Error en la grabación', 'Por favor, permite el acceso al micrófono para grabar audio');
+      };
     } catch (err) {
       console.error('Failed to start recording', err);
-    }
-  }
+    };
+  };
 
   async function stopRecording() {
     if (recording) {
@@ -54,11 +65,12 @@ export default function App() {
           }
         ];
         setRecordings(updatedRecordings);
+        saveRecording()
       } catch (error) {
         console.error('Failed to create loaded sound', error);
-      }
-    }
-  }
+      };
+    };
+  };
 
   function getDurationFormatted(millis: number): string {
     const minutes = millis / 1000 / 60;
@@ -66,7 +78,40 @@ export default function App() {
     const seconds = Math.round((minutes - minutesDisplay) * 60);
     const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds;
     return `${minutesDisplay}:${secondsDisplay}`;
-  }
+  };
+
+  const saveRecording = async () => {
+    try {
+      const jsonValue = JSON.stringify(recordings);
+      await AsyncStorage.setItem(STORAGE_KEY, jsonValue);
+    } catch (e) {
+      console.error('Failed saving: ' + e);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+  
+  const loadData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
+      if (jsonValue) {
+        const parsedValue = JSON.parse(jsonValue);
+        setRecordings(parsedValue);
+      }
+    } catch (e) {
+      console.error('Error reading value: ', e);
+    }
+  };
+
+  const deleteRecording = (index: number) => {
+    const updatedRecordings = [...recordings];
+    const deletedRecording = updatedRecordings.splice(index, 1)[0];
+    deletedRecording.sound.unloadAsync();
+    setRecordings(updatedRecordings);
+    saveRecording();
+  };
 
   function getRecordingLines() {
     return recordings.map((recordingLine, index) => (
@@ -75,7 +120,7 @@ export default function App() {
         <Pressable style={styles.recordPressable} onPress={() => recordingLine.sound.replayAsync()}>
           <Text style={styles.buttonText}>Reproducir ▶️</Text>
         </Pressable>
-        <Pressable style={{...styles.recordPressable, ...styles.deletePressable}} onPress={() => recordingLine.sound.replayAsync()}>
+        <Pressable style={{...styles.recordPressable, ...styles.deletePressable}} onPress={() => deleteRecording(index)}>
           <Text style={styles.buttonText}>Eliminar 🗑️</Text>
         </Pressable>
       </View>
